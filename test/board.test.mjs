@@ -5,6 +5,10 @@ import os from 'node:os'
 import path from 'node:path'
 import { assemble, board } from '../bridge/board.mjs'
 
+const fresh = fs.mkdtempSync(path.join(os.tmpdir(), 'agent-canvas-test-'))
+assemble(fresh)
+assert.equal(fs.readdirSync(path.join(fresh, 'history')).filter(n => n.startsWith('turn-')).length, 0, 'no snapshot before the first prompt')
+
 const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'agent-canvas-test-'))
 fs.mkdirSync(path.join(dir, 'panels'))
 const write = (name, text) => fs.writeFileSync(path.join(dir, name), text)

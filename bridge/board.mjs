@@ -68,8 +68,11 @@ export function assemble(dir) {
   const out = path.join(dir, 'board.html')
   fs.writeFileSync(out, page(dir, '<a href="history/index.html">earlier turns</a>'))
   // One snapshot per turn, overwritten until the next prompt, so each keeps that turn's final board.
-  const snap = `turn-${stampOf(turnStart(dir))}.html`
-  fs.writeFileSync(path.join(hist, snap), page(dir, '<a href="index.html">all turns</a> · <a href="../board.html">live</a>'))
+  // Before the first prompt there is no turn yet, so nothing to keep.
+  if (turnStart(dir)) {
+    const snap = `turn-${stampOf(turnStart(dir))}.html`
+    fs.writeFileSync(path.join(hist, snap), page(dir, '<a href="index.html">all turns</a> · <a href="../board.html">live</a>'))
+  }
   const turns = fs.readdirSync(hist).filter(n => /^turn-\d{8}-\d{6}\.html$/.test(n)).sort().reverse()
   const items = turns.map(n => `<li><a href="${n}">${n.slice(5, 9)}-${n.slice(9, 11)}-${n.slice(11, 13)} ${n.slice(14, 16)}:${n.slice(16, 18)}</a></li>`).join('\n')
   fs.writeFileSync(path.join(hist, 'index.html'), read(TEMPLATE)

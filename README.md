@@ -4,6 +4,8 @@ A live board for each Claude Code session, in a pane beside the transcript. The 
 
 It is a Claude Code [mod](https://code.claude.com/docs/en/plugins/mods/overview): a plugin whose hooks run inside Claude Code.
 
+![The agent draws a canvas of how Express routing works, then the table it built is filtered in the pane](docs/demo.gif)
+
 ## How it works
 
 - **The agent writes files.** While the board is on, the mod adds the rules in [RULES.md](RULES.md) to the system prompt. Each reply, the agent rewrites `turn.html` (this reply's news), edits the panels that changed (`panels/<name>.html`, kept across turns) and appends a line to `log.txt`. The files live in `~/.claude/agent-canvas/sessions/<session id>/`.

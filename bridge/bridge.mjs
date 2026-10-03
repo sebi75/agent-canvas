@@ -112,7 +112,7 @@ function watch(folder, matches, fn) {
 
 function quit() {
   try { chrome.kill() } catch {}
-  fs.rmSync(dir, { recursive: true, force: true })
+  try { fs.rmSync(dir, { recursive: true, force: true, maxRetries: 5 }) } catch {} // Chrome may still be writing its profile
   process.exit(0)
 }
 process.on('SIGTERM', quit)
