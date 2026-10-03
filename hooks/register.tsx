@@ -14,7 +14,7 @@ const isOnRef = atom({ plugin: 'agent-canvas', key: 'isOn' } as const, false)
 let dir = '' // this session's board files
 let rules = ''
 let home = ''
-let maxFps = 60 // Herdr draws a few images a second; more only queue up inside it and delay every click
+let maxFps = 60
 let scale = '2'
 let noImages = NO_IMAGES
 let url = '' // what the pane shows: '' is the board
@@ -118,10 +118,9 @@ export const register: Register = on => {
     home = (await $.env.get('HOME')) ?? ''
     dir = `${home}/.claude/agent-canvas/sessions/${await $.session.id()}`
     rules = (await $.fs.read(`${$.plugin.root}/RULES.md`)).replaceAll('{{DIR}}', dir)
-    const inHerdr = !!(await $.env.get('HERDR_ENV'))
-    maxFps = Number(await $.env.get('AGENT_CANVAS_FPS')) || (inHerdr ? 4 : 60)
-    scale = (await $.env.get('AGENT_CANVAS_SCALE')) || (inHerdr ? '1' : '2')
-    if (inHerdr) noImages = NO_IMAGES_HERDR
+    maxFps = Number(await $.env.get('AGENT_CANVAS_FPS')) || 60
+    scale = (await $.env.get('AGENT_CANVAS_SCALE')) || '2'
+    if (await $.env.get('HERDR_ENV')) noImages = NO_IMAGES_HERDR
     if ((await $.env.get('AGENT_CANVAS_OPEN')) === '1' || (await read($, isOnRef))) await turnOn($)
     return started
   })

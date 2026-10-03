@@ -41,14 +41,14 @@ Click the page to type into it. Esc gives the keyboard back to Claude Code. The 
 
 Claude Code turns images off when the terminal reports itself as "libghostty", which [Herdr](https://herdr.dev) does. Its own switch turns them back on: set `CLAUDE_CODE_FORCE_TERMINAL_IMAGES=1` in the shell that starts `claude` inside Herdr, for example in `~/.zshrc` when `HERDR_ENV` is set.
 
-Herdr currently draws a few images per second from a program inside a pane, so the mod caps the board at 4 frames per second at 1× scale there. In plain Ghostty the same page measured about 53 frames per second on screen.
+Use Herdr 0.9 or later. On Herdr 0.9.3 an animated page measured about 42 frames per second on screen, against about 53 in plain Ghostty. Herdr 0.7 drew about 3; there, set `AGENT_CANVAS_FPS=4` so frames do not queue up.
 
 ## Configuration
 
 | variable | default |
 |---|---|
-| `AGENT_CANVAS_FPS` | 60, or 4 inside Herdr |
-| `AGENT_CANVAS_SCALE` | 2 device pixels per CSS pixel, or 1 inside Herdr |
+| `AGENT_CANVAS_FPS` | 60 |
+| `AGENT_CANVAS_SCALE` | 2 device pixels per CSS pixel |
 | `AGENT_CANVAS_CHROME` | the first Chrome or Chromium found |
 | `AGENT_CANVAS_OPEN` | unset; `1` turns the board on at session start |
 
