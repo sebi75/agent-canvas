@@ -1,0 +1,8 @@
+{
+  "name": "agent-canvas",
+  "version": "0.1.0",
+  "description": "A live, clickable board for each Claude Code session, drawn by headless Chrome in a pane beside the transcript.",
+  "author": { "name": "Sebastian Semeniuc" },
+  "license": "MIT",
+  "types": "./types/index.d.ts"
+}

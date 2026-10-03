@@ -1,0 +1,55 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>{{TITLE}}</title>
+<style>
+  :root { --bg:#0c0c0d; --panel:#151517; --ink:#ededee; --muted:#8e8e93; --line:#27272a; --strong:#fafafa; --soft:#232326;
+    --warn:#e5b567; --mono:ui-monospace,"SF Mono",Menlo,monospace; --sans:-apple-system,BlinkMacSystemFont,"Inter","Helvetica Neue",sans-serif; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:15px/1.55 var(--sans); padding:18px 22px 28px; }
+  a { color:var(--strong); }
+  header { display:flex; justify-content:space-between; align-items:baseline; gap:12px; margin-bottom:14px; }
+  header b { font-size:13px; letter-spacing:.02em; }
+  header nav { font:12px var(--mono); color:var(--muted); } header nav a { color:var(--muted); }
+  main { display:grid; gap:18px; }
+  .status { border-left:3px solid var(--strong); padding:10px 14px; background:var(--panel); border-radius:0 8px 8px 0; font-weight:600; }
+  .status small { display:block; font:400 11px var(--mono); color:var(--muted); margin-top:4px; }
+  h2 { font:500 11px/1 var(--mono); letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin:0 0 10px; }
+  p { margin:0 0 8px; max-width:72ch; }
+  section { min-width:0; }
+  .flow { display:flex; flex-wrap:wrap; align-items:stretch; gap:8px; }
+  .box { flex:1 1 150px; border:1px solid var(--line); background:var(--panel); border-radius:8px; padding:10px 12px; }
+  .box b { display:block; font-size:13px; margin-bottom:2px; }
+  .box span { color:var(--muted); font-size:12.5px; }
+  .box.ok { border-color:#52525b; } .box.warn { border-color:var(--warn); }
+  .arrow { align-self:center; color:var(--muted); font-family:var(--mono); }
+  .cols { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px; }
+  .col { border-top:2px solid var(--line); padding-top:8px; } .col.now { border-top-color:var(--strong); }
+  ul { margin:0; padding-left:18px; } li { margin-bottom:4px; }
+  table { border-collapse:collapse; width:100%; font-size:13.5px; }
+  th, td { text-align:left; vertical-align:top; padding:6px 10px 6px 0; border-bottom:1px solid var(--line); }
+  th { font:500 11px var(--mono); color:var(--muted); letter-spacing:.04em; }
+  code { font:.9em var(--mono); background:var(--soft); padding:1px 5px; border-radius:4px; }
+  .tag { font:10.5px var(--mono); padding:1px 6px; border-radius:4px; background:var(--soft); color:var(--strong); vertical-align:1px; }
+  .tag.w { color:var(--warn); }
+  details { border:1px solid var(--line); border-radius:8px; padding:8px 12px; background:var(--panel); }
+  summary { cursor:pointer; font-weight:600; }
+  svg { max-width:100%; height:auto; }
+  pre.mermaid { margin:0; display:flex; justify-content:center; background:none; }
+  pre.mermaid svg { max-width:100%; max-height:42vh; }
+  .panel { border-left:2px solid var(--line); padding:2px 0 2px 14px; }
+  .panel.new { border-left-color:var(--strong); }
+  .panel h2 .tag, .since { margin-left:10px; text-transform:none; letter-spacing:0; }
+  .since { font-size:10.5px; color:var(--muted); opacity:.75; }
+  .log { font:12.5px var(--mono); padding:0; } .log li { list-style:none; display:flex; gap:12px; }
+  .log time { color:var(--muted); flex:0 0 3ch; }
+  .logbox:has(ul:empty) { display:none; }
+  .turns { font-family:var(--mono); }
+</style>
+<header><b>{{TITLE}}</b><nav>{{NAV}}</nav></header>
+<main>
+{{TURN}}
+{{BOARD}}
+  <section class="logbox">
+    <h2>Turn log</h2>
+    <ul class="log">{{LOG}}</ul>
+  </section>
+</main>

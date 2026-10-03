@@ -1,0 +1,43 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Canvas browser test</title>
+<style>
+  :root { --bg:#0c0c0d; --panel:#151517; --ink:#ededee; --muted:#8e8e93; --line:#27272a; --strong:#fafafa; --mid:#a1a1aa; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:15px/1.5 -apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif; padding:20px 24px; }
+  h1 { font-size:20px; margin:0 0 4px; } .muted { color:var(--muted); font-size:13px; }
+  main { display:grid; gap:16px; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); margin-top:16px; }
+  section { background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:14px; }
+  h2 { font:500 11px/1 ui-monospace,"SF Mono",Menlo,monospace; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin:0 0 10px; }
+  button { background:var(--strong); color:#0c0c0d; border-radius:6px; border:0; padding:8px 14px; font-weight:600; cursor:pointer; }
+  button:active { transform:translateY(1px); }
+  input { width:100%; box-sizing:border-box; background:var(--bg); color:var(--ink); border:1px solid var(--line); padding:8px; font:inherit; }
+  input { border-radius:6px; } input:focus { outline:none; border-color:var(--mid); }
+  .cards { display:flex; gap:8px; } .card { flex:1; padding:14px 6px; text-align:center; border:1px solid var(--line); transition:.15s; }
+  .card { border-radius:6px; } .card:hover { background:var(--strong); color:#0c0c0d; transform:translateY(-3px); }
+  .bar { height:10px; background:var(--line); overflow:hidden; } .bar { border-radius:5px; } .bar i { display:block; height:100%; width:40%; border-radius:5px; background:var(--strong); animation:slide 1.6s ease-in-out infinite alternate; }
+  @keyframes slide { from { margin-left:0 } to { margin-left:60% } }
+  svg rect { fill:var(--mid); transition:.15s; } svg rect:hover { fill:var(--strong); }
+  ol { margin:0; padding-left:22px; } li { padding:3px 0; border-bottom:1px solid var(--line); }
+</style>
+<h1>Canvas browser: a real Chromium inside Claude Code</h1>
+<div class="muted">viewport <b id="vp"></b> · loaded <span id="t"></span></div>
+<main>
+  <section><h2>Click</h2><button id="b">Clicked 0 times</button></section>
+  <section><h2>Type</h2><input id="in" placeholder="click here, then type"><p class="muted">You typed: <span id="out">nothing yet</span></p></section>
+  <section><h2>Hover</h2><div class="cards"><div class="card">one</div><div class="card">two</div><div class="card">three</div></div></section>
+  <section><h2>Animation</h2><div class="bar"><i></i></div></section>
+  <section><h2>Chart (hover a bar)</h2>
+    <svg viewBox="0 0 300 100"><g id="bars"></g></svg></section>
+  <section><h2>Scroll (wheel over the pane)</h2><ol id="list"></ol></section>
+</main>
+<script>
+  let n = 0;
+  b.onclick = () => { b.textContent = `Clicked ${++n} time${n === 1 ? "" : "s"}`; };
+  document.getElementById("in").oninput = e => { out.textContent = e.target.value || "nothing yet"; };
+  const vp = () => { document.getElementById("vp").textContent = `${innerWidth}×${innerHeight}`; };
+  addEventListener("resize", vp); vp();
+  t.textContent = new Date().toLocaleTimeString();
+  [42, 70, 30, 88, 55, 64, 20, 76].forEach((v, i) => bars.insertAdjacentHTML("beforeend",
+    `<rect x="${i * 37 + 4}" y="${100 - v}" width="30" height="${v}"><title>${v}</title></rect>`));
+  for (let i = 1; i <= 40; i++) list.insertAdjacentHTML("beforeend", `<li>row ${i}</li>`);
+</script>

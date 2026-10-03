@@ -1,0 +1,16 @@
+{
+  "name": "agent-canvas",
+  "owner": {
+    "name": "Sebastian Semeniuc"
+  },
+  "metadata": {
+    "description": "Agent canvas: a live board for Claude Code sessions."
+  },
+  "plugins": [
+    {
+      "name": "agent-canvas",
+      "source": "./",
+      "description": "A live, clickable board for each Claude Code session, drawn by headless Chrome in a pane beside the transcript."
+    }
+  ]
+}
